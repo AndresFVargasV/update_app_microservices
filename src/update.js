@@ -1,6 +1,7 @@
 const { connectToDatabase } = require('./dbconfig');
 
-async function insertarPersona(
+// Función asíncrona para actualizar una persona en la base de datos
+async function actualizarPersona(
     primer_nombre,
     segundo_nombre,
     apellidos,
@@ -10,22 +11,19 @@ async function insertarPersona(
     celular,
     numero_documento,
     tipo_documento,
-    foto
-) {
+    foto) {
 
-    let client;
-
+    // Implementar la logica aquí para actualizar una persona en la base de datos y manejamos los errores con try/catch
     try {
 
         // Conectarse a MongoDB
-        client = await connectToDatabase();
+        const client = await connectToDatabase();
 
         // Seleccionar la base de datos y la colección
         const db = client.db('crud');
         const collection = db.collection('crudmicroservices');
 
-
-        // Crear el documento que se va a insertar en la colección
+        // Crear el documento que se va a actualizar en la colección
         const persona = {
             primer_nombre,
             segundo_nombre,
@@ -38,34 +36,37 @@ async function insertarPersona(
             tipo_documento,
             foto
         };
-        
-        const filtro = { numero_documento: numero_documento };
-        console.log(persona);
 
+        // Creamos un filtro para buscar el documento que queremos actualizar
+        const filtro = { numero_documento: numero_documento };
+
+        // Creamos un objeto con los nuevos valores para actualizar el documento
         const nuevosValores = {
             $set: {
-                primer_nombre: primer_nombre,
-                segundo_nombre: segundo_nombre,
-                apellidos: apellidos,
-                fecha_nacimiento: fecha_nacimiento,
-                genero_id: genero_id,
-                correo_electronico: correo_electronico,
+                primer_nombre,
+                segundo_nombre,
+                apellidos,
+                fecha_nacimiento,
+                genero_id,
+                correo_electronico,
                 celular: celular,
-                numero_documento: numero_documento,
-                tipo_documento: tipo_documento,
+                numero_documento,
+                tipo_documento,
                 foto: foto
             }
-          };
+        };
 
+        // Actualizamos el documento
         const result = await collection.updateOne(filtro, nuevosValores);
 
+        // Verificar el resultado
         if (result.acknowledged) {
             return true;
         } else {
             return false;
         }
     } catch (error) {
-        console.error('Error al insertar datos o al conectarse con la BD', error);
+        // Respodemos la petición con un error 503 Service Unavailable
         res.status(503).json({
             "res": "Error"
         });
@@ -77,4 +78,5 @@ async function insertarPersona(
     }
 }
 
-module.exports = insertarPersona;
+// Exportar la función para usarla en otros módulos
+module.exports = actualizarPersona;

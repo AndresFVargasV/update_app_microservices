@@ -15,4 +15,5 @@ async function connectToDatabase() {
   }
 }
 
+// Exportar la función para usarla en otros módulos
 module.exports = { connectToDatabase };
