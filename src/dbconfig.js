@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 
 // URL de conexión a tu base de datos MongoDB, incluyendo nombre de usuario y contraseña
-const url = 'mongodb://localhost:27017/crud';
+const url = 'mongodb://127.0.0.1:27017/crud';
 
 // Exportar una función que devuelve la conexión una vez establecida
 async function connectToDatabase() {

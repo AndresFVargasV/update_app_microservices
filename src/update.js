@@ -13,11 +13,13 @@ async function actualizarPersona(
     tipo_documento,
     foto) {
 
+    let client;
+
     // Implementar la logica aquí para actualizar una persona en la base de datos y manejamos los errores con try/catch
     try {
 
         // Conectarse a MongoDB
-        const client = await connectToDatabase();
+        client = await connectToDatabase();
 
         // Seleccionar la base de datos y la colección
         const db = client.db('crud');

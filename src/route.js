@@ -47,19 +47,22 @@ router.post('/updatepeople', cors(), upload.single('foto'), async (req, res) => 
             numero_documento,
             tipo_documento,
             foto);
-
+            
         if (result === true) {
             // Si la actualización fue exitosa, retornamos un mensaje de éxito
+            
             res.status(200).json({
                 "res": "People added successful"
             });
         } else {
             // Si la actualización no fue exitosa, retornamos un mensaje de error
+            console.log("Error 1")
             res.estatus(503).json({
                 "res": "People added failed"
             });
         }
     } catch (err) {
+        console.log(err)
         // Si hubo un error, respondemos la petición con un error 503 Service Unavailable
         res.status(503).json({
             "res": "People added failed"
