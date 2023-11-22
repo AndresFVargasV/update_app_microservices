@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 
 // Settings
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3002);
 
 // Middlewares
 app.use(morgan('dev'));
@@ -19,7 +19,7 @@ app.use(cors());
 app.use('/api', customerRoutes);
 
 // Starting the server
-const port = 3001;
+const port = 3002;
 app.listen(app.get('port'), () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
